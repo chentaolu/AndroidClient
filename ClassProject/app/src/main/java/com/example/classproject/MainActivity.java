@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         });
         Thread getMessage = new Thread(new MyHandler());
         getMessage.start();
+        System.out
+        //json object
     }
 
 }
