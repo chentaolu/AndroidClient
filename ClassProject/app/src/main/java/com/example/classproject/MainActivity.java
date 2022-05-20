@@ -16,6 +16,7 @@ import java.net.HttpURLConnection;
 public class MainActivity extends AppCompatActivity {
 
     private ImageButton mapBtn;
+    public static String url = "https://591b-59-126-72-168.ngrok.io/GetAllCountry";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +31,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(mapPage);
             }
         });
-        try {
-            String json = Connection.getJSON("http://127.0.0.1:8080/GetAllCountry", 9000);
-            System.out.println(json);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Thread getMessage = new Thread(new MyHandler());
+        getMessage.start();
     }
 
 }
