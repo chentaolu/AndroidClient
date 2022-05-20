@@ -18,19 +18,12 @@
         android:id="@+id/btstart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Start">
+        android:text="Search">
     </Button>
     <Button
         android:id="@+id/btstop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Stop">
-    </Button>
-    <Button
-        android:id="@+id/btnNextFunction"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Next Function">
-
     </Button>
 </LinearLayout>
