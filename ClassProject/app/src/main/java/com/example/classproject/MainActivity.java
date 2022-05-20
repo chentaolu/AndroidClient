@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -34,8 +35,17 @@ public class MainActivity extends AppCompatActivity {
         });
         Thread getMessage = new Thread(new MyHandler());
         getMessage.start();
-        System.out
-        //json object
+        while(!MyHandler.done) {
+            System.out.println("wait");
+        }
+        try {
+            System.out.println(MyHandler.returnResult.get("0"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        MyHandler.done = false;
+
+
     }
 
 }

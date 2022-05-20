@@ -9,7 +9,8 @@ import java.io.IOException;
 public class MyHandler implements Runnable {
 
     static JSONObject returnResult;
-    
+    static boolean done = false;
+
     @Override
     public void run() {
         try {
@@ -19,7 +20,7 @@ public class MyHandler implements Runnable {
             result = result.replace("\\", "");
             System.out.println(result);
             returnResult = new JSONObject(result);
-
+            done = true;
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
