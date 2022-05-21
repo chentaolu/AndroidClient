@@ -35,7 +35,6 @@ public class mapAct extends FragmentActivity implements OnMapReadyCallback {
                 startActivity(schoolsearch);
             }
         });
-
     }
 
     @Override
