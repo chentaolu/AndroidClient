@@ -16,8 +16,10 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private LatLng currentLocation = new LatLng(24.178581,120.650163 );
     LocationManager locationManager;
     private static final int REQUEST_LOCATION = 1;
+    private LinearLayout schoolsBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             getLocation();
         }*/
+        schoolsBtn = findViewById(R.id.units_group);
     }
 
     @Override
@@ -72,15 +76,25 @@ public class MainActivity extends AppCompatActivity {
         while (!MyArrayHandler.done){
             System.out.println("wait");
         }
+        MyArrayHandler.done = false;
+
         try {
             for(int i = 0; i < MyArrayHandler.returnResult.length(); i++) {
                 System.out.println(MyArrayHandler.returnResult.getJSONObject(i).get("schoolName"));
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        200
+                );
+
+                Button school = new Button(this);
+                school.setLayoutParams(params);
+                school.setText(MyArrayHandler.returnResult.getJSONObject(i).get("schoolName").toString());
+                school.setId(i);
+                schoolsBtn.addView(school);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        MyArrayHandler.done = false;
-
     }
     /*
     private void getLocation() {
