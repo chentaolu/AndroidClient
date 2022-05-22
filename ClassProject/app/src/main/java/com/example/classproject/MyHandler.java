@@ -8,16 +8,15 @@ import java.io.IOException;
 
 public class MyHandler implements Runnable {
 
+    public static String url = "https://cf3b-59-126-72-168.ngrok.io/GetAllCountry";
     static JSONObject returnResult;
     static boolean done = false;
 
     @Override
     public void run() {
         try {
-            String result = Connection.getJSON(MainActivity.url, 9000);
+            String result = Connection.getJSON(this.url, 9000);
 
-            result = result.substring(result.indexOf("{"), result.lastIndexOf("}") + 1);
-            result = result.replace("\\", "");
             System.out.println(result);
             returnResult = new JSONObject(result);
             done = true;

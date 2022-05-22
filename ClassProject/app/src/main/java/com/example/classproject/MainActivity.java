@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private ImageButton mapBtn;
-    public static String url = "https://6b3a-59-126-72-168.ngrok.io//GetAllCountry";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +34,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(mapPage);
             }
         });
-        Thread getMessage = new Thread(new MyHandler());
+        Thread getMessage = new Thread(new MyArrayHandler());
         getMessage.start();
-        while(!MyHandler.done) {
+        while(!MyArrayHandler.done) {
             System.out.println("wait");
         }
         try {
-            System.out.println(MyHandler.returnResult.get("0"));
+            for(int i = 0; i < MyArrayHandler.returnResult.length(); i++) {
+                System.out.println(MyArrayHandler.returnResult.getJSONObject(i).get("countryName"));
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
