@@ -36,7 +36,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
 
-    private ImageButton mapBtn;
+    private Button mapBtn;
     private LatLng currentLocation = new LatLng(24.178581,120.650163 );
     LocationManager locationManager;
     private static final int REQUEST_LOCATION = 1;
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mapBtn = (ImageButton) findViewById(R.id.ChangeToMap_Btn);
+        mapBtn = (Button) findViewById(R.id.ChangeToMap_Btn);
 
         mapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
