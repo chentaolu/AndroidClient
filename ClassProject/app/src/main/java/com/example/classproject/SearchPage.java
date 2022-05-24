@@ -9,8 +9,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class SearchPage extends AppCompatActivity {
     EditText schoolname;
+    List<String> countries;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,11 +25,30 @@ public class SearchPage extends AppCompatActivity {
 
         schoolname = (EditText)findViewById(R.id.edt1);
 
+        Thread getMessage = new Thread(new MyArrayHandler());
+        MyArrayHandler.url = "/GetAllCountry";
+        countries = new ArrayList<String>();
+
+        getMessage.start();
+        while (!MyArrayHandler.done){
+            System.out.println("wait");
+        }
+        MyArrayHandler.done = false;
+
+        for(int i = 0; i < MyArrayHandler.returnResult.length(); i++) {
+            try {
+                countries.add(MyArrayHandler.returnResult.getJSONObject(i).get("countryName").toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        System.out.println(R.array.planets_array);
+
         Spinner spinner = (Spinner) findViewById(R.id.spinner1);
-        ArrayAdapter<CharSequence> adapter =
-                ArrayAdapter.createFromResource(this,
-                        R.array.planets_array,
-                        android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, countries);
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setSelection(2, false);
