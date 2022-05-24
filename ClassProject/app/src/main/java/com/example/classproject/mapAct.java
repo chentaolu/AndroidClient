@@ -15,7 +15,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 
 public class mapAct extends FragmentActivity implements OnMapReadyCallback {
 
-    Button search;
+    Button search, change;
+    int count=1;
+    private GoogleMap mMap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +39,17 @@ public class mapAct extends FragmentActivity implements OnMapReadyCallback {
         });
     }
 
+
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-
+        mMap = googleMap;
+        change = (Button)findViewById(R.id.btchange);
+        change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mMap.setMapType(count % 4 + 1);
+                count++;
+            }
+        });
     }
 }
