@@ -9,9 +9,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 
 public class mapAct extends FragmentActivity implements OnMapReadyCallback {
 
@@ -51,5 +54,9 @@ public class mapAct extends FragmentActivity implements OnMapReadyCallback {
                 count++;
             }
         });
+
+        LatLng taiwan = new LatLng(23.973875, 120.982024);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(taiwan));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(8));
     }
 }
