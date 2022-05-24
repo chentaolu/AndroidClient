@@ -37,7 +37,12 @@ public class mapAct extends FragmentActivity implements OnMapReadyCallback {
                 startActivity(schoolsearch);
             }
         });
-        
+    }
+
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        mMap = googleMap;
         change = (Button)findViewById(R.id.btchange);
         change.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,10 +51,5 @@ public class mapAct extends FragmentActivity implements OnMapReadyCallback {
                 count++;
             }
         });
-    }
-
-
-    @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) {
     }
 }
