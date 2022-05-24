@@ -26,4 +26,11 @@
         android:layout_height="wrap_content"
         android:text="Stop">
     </Button>
+    <Button
+        android:id="@+id/btchange"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="change">
+    </Button>
+
 </LinearLayout>
