@@ -17,6 +17,8 @@ import java.util.List;
 public class SearchPage extends AppCompatActivity {
     List<String> countries;
     List<String> schools;
+    String countryInfo;
+    String schoolInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,7 @@ public class SearchPage extends AppCompatActivity {
         }
 ////////////////////////////選完國家選學校/////////////////////////////
         Thread getSchoolMessage = new Thread(new MyArrayHandler());
-        MyArrayHandler.url = "/GetSchoolDataByCountry?country=";
+        MyArrayHandler.url = "/GetSchoolDataByCountry?country="+countryInfo;
         schools = new ArrayList<String>();
 
         getSchoolMessage.start();
@@ -86,9 +88,8 @@ public class SearchPage extends AppCompatActivity {
     private AdapterView.OnItemSelectedListener spnOnItemSelectedcountry
             = new AdapterView.OnItemSelectedListener() {
         public void onItemSelected(AdapterView<?> parent, View view,
-                                   int pos, long id) {
-            String sPos=String.valueOf(pos);
-            String countryInfo=parent.getItemAtPosition(pos).toString();
+                                   int countrypos, long id) {
+            countryInfo=parent.getItemAtPosition(countrypos).toString();
         }
         public void onNothingSelected(AdapterView<?> parent) {
             //
@@ -98,9 +99,8 @@ public class SearchPage extends AppCompatActivity {
     private AdapterView.OnItemSelectedListener spnOnItemSelectedschool
             = new AdapterView.OnItemSelectedListener() {
         public void onItemSelected(AdapterView<?> parent, View view,
-                                   int pos, long id) {
-            String sPos=String.valueOf(pos);
-            String schoolInfo=parent.getItemAtPosition(pos).toString();
+                                   int schollpos, long id) {
+            schoolInfo=parent.getItemAtPosition(schollpos).toString();
         }
         public void onNothingSelected(AdapterView<?> parent) {
             //
