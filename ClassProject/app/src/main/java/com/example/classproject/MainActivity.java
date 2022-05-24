@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private Button mapBtn;
-    private LatLng currentLocation = new LatLng(24.9085558,118.4960323 );
+    static public LatLng currentLocation = new LatLng(24.9085558,118.4960323 );
     LocationManager locationManager;
     private static final int REQUEST_LOCATION = 1;
     private LinearLayout schoolsBtn;

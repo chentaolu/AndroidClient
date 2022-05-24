@@ -14,7 +14,14 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.json.JSONException;
+
+import java.util.ArrayList;
 
 public class mapAct extends FragmentActivity implements OnMapReadyCallback {
 
@@ -58,5 +65,33 @@ public class mapAct extends FragmentActivity implements OnMapReadyCallback {
         LatLng taiwan = new LatLng(23.973875, 120.982024);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(taiwan));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(8));
+
+
+
+        Thread getMessage = new Thread(new MyArrayHandler());
+        MyArrayHandler.url = "/GetAllSchoolCoordinate";
+
+        getMessage.start();
+        while (!MyArrayHandler.done){
+            System.out.println("wait");
+        }
+        MyArrayHandler.done = false;
+
+        for(int i = 0; i < MyArrayHandler.returnResult.length(); i++) {
+            try {
+                String longitude = MyArrayHandler.returnResult.getJSONObject(i).get("longitude").toString();
+                String latitude = MyArrayHandler.returnResult.getJSONObject(i).get("latitude").toString();
+                LatLng resultMark = new LatLng(Float.parseFloat(latitude), Float.parseFloat(longitude));
+                BitmapDescriptor descriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE);
+                mMap.addMarker(new MarkerOptions().position(resultMark).icon(descriptor));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+
     }
+
+
 }
