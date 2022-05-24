@@ -81,9 +81,10 @@ public class mapAct extends FragmentActivity implements OnMapReadyCallback {
             try {
                 String longitude = MyArrayHandler.returnResult.getJSONObject(i).get("longitude").toString();
                 String latitude = MyArrayHandler.returnResult.getJSONObject(i).get("latitude").toString();
+                String schoolName = MyArrayHandler.returnResult.getJSONObject(i).get("schoolName").toString();
                 LatLng resultMark = new LatLng(Float.parseFloat(latitude), Float.parseFloat(longitude));
                 BitmapDescriptor descriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE);
-                mMap.addMarker(new MarkerOptions().position(resultMark).icon(descriptor));
+                mMap.addMarker(new MarkerOptions().position(resultMark).title(schoolName).icon(descriptor));
 
             } catch (JSONException e) {
                 e.printStackTrace();
