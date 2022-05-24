@@ -20,12 +20,12 @@
         android:layout_height="wrap_content"
         android:text="Search">
     </Button>
+
     <Button
-        android:id="@+id/btstop"
+        android:id="@+id/webPage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Stop">
-    </Button>
+        android:text="GO WEB PAGE"></Button>
     <Button
         android:id="@+id/btchange"
         android:layout_width="match_parent"
