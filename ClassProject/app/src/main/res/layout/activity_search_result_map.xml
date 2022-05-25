@@ -14,6 +14,35 @@
 
     </fragment>
 
+    <Button
+        android:id="@+id/btstart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start" />
+
+    <Button
+        android:id="@+id/btstop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Stop" />
+
+    <Button
+        android:id="@+id/btdrive"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Drive" />
+
+    <Button
+        android:id="@+id/btwalk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Walk" />
+
+    <Button
+        android:id="@+id/btbicycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bicycle" />
 
 
 </LinearLayout>
