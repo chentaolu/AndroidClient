@@ -37,11 +37,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     private Button mapBtn;
-    static public LatLng currentLocation = new LatLng(24.2499376,120.7234986 );
+    static public LatLng currentLocation = new LatLng(25.0854061,121.5615012 );
     LocationManager locationManager;
     private static final int REQUEST_LOCATION = 1;
     private LinearLayout schoolsBtn;
-    public String currentCountry = "";
+    public static String currentCountry = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

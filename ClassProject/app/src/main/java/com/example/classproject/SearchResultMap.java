@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -67,24 +68,36 @@ public class SearchResultMap extends AppCompatActivity implements OnMapReadyCall
         launch1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                uriString = String.format("google.navigation:q=%f,%f,&mode=d", selectLatLng.latitude, selectLatLng.longitude);
-                launchMap();
+                if(MainActivity.currentCountry.equals(selectCountry)) {
+                    uriString = String.format("google.navigation:q=%f,%f,&mode=d", selectLatLng.latitude, selectLatLng.longitude);
+                    launchMap();
+                } else {
+                    Toast.makeText(getApplicationContext(), "請先到本國的國際機場", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         launch2 = (Button)findViewById(R.id.btwalk);
         launch2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                uriString = String.format("google.navigation:q=%f,%f,&mode=w", selectLatLng.latitude, selectLatLng.longitude);
-                launchMap();
+                if(MainActivity.currentCountry.equals(selectCountry)) {
+                    uriString = String.format("google.navigation:q=%f,%f,&mode=w", selectLatLng.latitude, selectLatLng.longitude);
+                    launchMap();
+                } else {
+                    Toast.makeText(getApplicationContext(), "請先到本國的國際機場", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         launch3 = (Button)findViewById(R.id.btbicycle);
         launch3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                uriString = String.format("google.navigation:q=%f,%f,&mode=b", selectLatLng.latitude, selectLatLng.longitude);
-                launchMap();
+                if(MainActivity.currentCountry.equals(selectCountry)) {
+                    uriString = String.format("google.navigation:q=%f,%f,&mode=b", selectLatLng.latitude, selectLatLng.longitude);
+                    launchMap();
+                } else {
+                    Toast.makeText(getApplicationContext(), "請先到本國的國際機場", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
