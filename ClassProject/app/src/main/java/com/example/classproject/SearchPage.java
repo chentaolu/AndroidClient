@@ -52,7 +52,7 @@ public class SearchPage extends AppCompatActivity {
         }
 ////////////////////////////選完國家選學校/////////////////////////////
         Thread getSchoolMessage = new Thread(new MyArrayHandler());
-        MyArrayHandler.url = "/GetSchoolDataByCountry?country="+countryInfo;
+        MyArrayHandler.url = "/GetSchoolDataByCountry?country="+String.valueOf(countryInfo);
         schools = new ArrayList<String>();
 
         getSchoolMessage.start();
