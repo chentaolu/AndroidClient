@@ -1,12 +1,16 @@
 package com.example.classproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 
 import org.json.JSONException;
@@ -17,8 +21,9 @@ import java.util.List;
 public class SearchPage extends AppCompatActivity {
     List<String> countries;
     List<String> schools;
-    String countryInfo;
-    String schoolInfo;
+    String countryInfo = "";
+    String schoolInfo = "";
+    public Context currentPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,7 @@ public class SearchPage extends AppCompatActivity {
         }
         MyArrayHandler.done = false;
 
+        currentPage = getApplicationContext();
         for (int i = 0; i < MyArrayHandler.returnResult.length(); i++) {
             try {
                 countries.add(MyArrayHandler.returnResult.getJSONObject(i).get("countryName").toString());
@@ -47,7 +53,7 @@ public class SearchPage extends AppCompatActivity {
                     android.R.layout.simple_list_item_1, countries);
             adaptercountry.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             countryspinner.setAdapter(adaptercountry);
-            countryspinner.setSelection(2, false);
+            countryspinner.setSelection(0, false);
             countryspinner.setOnItemSelectedListener(spnOnItemSelectedcountry);
 
 
@@ -59,6 +65,17 @@ public class SearchPage extends AppCompatActivity {
         submit.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(countryInfo.equals("") || schoolInfo.equals("")) {
+                    Toast.makeText(getApplicationContext(), "please select a school", Toast.LENGTH_SHORT).show();
+                } else {
+                    SearchResultMap.selectCountry = countryInfo;
+                    SearchResultMap.selectSchool = schoolInfo;
+
+                    Intent intent = new Intent();
+                    intent.setClass(SearchPage.this, SearchResultMap.class);
+                    startActivity(intent);
+
+                }
 
             }
         });
@@ -68,6 +85,7 @@ public class SearchPage extends AppCompatActivity {
         public void onItemSelected(AdapterView<?> parent, View view,
                                    int countrypos, long id) {
             countryInfo=parent.getItemAtPosition(countrypos).toString();
+
             //////////////////////////////////////////////////////////////
             Thread getSchoolMessage = new Thread(new MyArrayHandler());
             MyArrayHandler.url = "/GetSchoolDataByCountry?country="+String.valueOf(countryInfo);
@@ -81,18 +99,20 @@ public class SearchPage extends AppCompatActivity {
 
             for (int j = 0; j < MyArrayHandler.returnResult.length(); j++) {
                 try {
-                    countries.add(MyArrayHandler.returnResult.getJSONObject(j).get("schoolName").toString());
+                    schools.add(MyArrayHandler.returnResult.getJSONObject(j).get("schoolName").toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
                 Spinner schoolspinner = (Spinner) findViewById(R.id.spinner2);
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countries);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(SearchPage.this, android.R.layout.simple_list_item_1, schools);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 schoolspinner.setAdapter(adapter);
-                schoolspinner.setSelection(2, false);
+
                 schoolspinner.setOnItemSelectedListener(spnOnItemSelectedschool);
             }
+
+
         }
         public void onNothingSelected(AdapterView<?> parent) {
             //
