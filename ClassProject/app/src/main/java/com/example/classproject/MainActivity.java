@@ -37,10 +37,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     private Button mapBtn;
-    static public LatLng currentLocation = new LatLng(24.9085558,118.4960323 );
+    static public LatLng currentLocation = new LatLng(24.2499376,120.7234986 );
     LocationManager locationManager;
     private static final int REQUEST_LOCATION = 1;
     private LinearLayout schoolsBtn;
+    public String currentCountry = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,13 +72,17 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         Thread getMessage = new Thread(new MyArrayHandler());
 
-        MyArrayHandler.url = "/GetCountryByLocation?" + "latitude=" + String.valueOf(currentLocation.latitude) + "&longitude=" + String.valueOf(currentLocation.longitude);
+        MyArrayHandler.url = "/GetSchoolDataByCurrentLocation?" + "latitude=" + String.valueOf(currentLocation.latitude) + "&longitude=" + String.valueOf(currentLocation.longitude);
         getMessage.start();
         while (!MyArrayHandler.done){
             System.out.println("wait");
         }
         MyArrayHandler.done = false;
-
+        try {
+            currentCountry = MyArrayHandler.returnResult.getJSONObject(0).getString("countryName");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         try {
             for(int i = 0; i < MyArrayHandler.returnResult.length(); i++) {
                 System.out.println(MyArrayHandler.returnResult.getJSONObject(i).get("schoolName"));
@@ -87,6 +92,21 @@ public class MainActivity extends AppCompatActivity {
                 );
 
                 Button school = new Button(this);
+                school.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Button currentBtn = (Button) view;
+                        SearchResultMap.selectCountry = currentCountry;
+                        SearchResultMap.selectSchool = currentBtn.getText().toString();
+                        Intent searchResult = new Intent();
+                        searchResult.setClass(MainActivity.this, SearchResultMap.class);
+                        startActivity(searchResult);
+                    }
+                });
+
+
+
+
                 school.setLayoutParams(params);
                 school.setText(MyArrayHandler.returnResult.getJSONObject(i).get("schoolName").toString());
                 school.setId(i);

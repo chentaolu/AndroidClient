@@ -8,10 +8,11 @@ import java.io.IOException;
 
 public class MyArrayHandler implements Runnable {
 
-    public static String baseUrl = "https://1283-59-126-72-168.ap.ngrok.io";
+    public static String baseUrl = "https://d196-59-126-72-168.ap.ngrok.io";
     public static String url = "";
     static JSONArray returnResult;
     static boolean done = false;
+
 
     @Override
     public void run() {
