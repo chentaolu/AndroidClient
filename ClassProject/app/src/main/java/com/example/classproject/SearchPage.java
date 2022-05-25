@@ -43,39 +43,17 @@ public class SearchPage extends AppCompatActivity {
                 e.printStackTrace();
             }
             Spinner countryspinner = (Spinner) findViewById(R.id.spinner1);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+            ArrayAdapter<String> adaptercountry = new ArrayAdapter<String>(this,
                     android.R.layout.simple_list_item_1, countries);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            countryspinner.setAdapter(adapter);
+            adaptercountry.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            countryspinner.setAdapter(adaptercountry);
             countryspinner.setSelection(2, false);
             countryspinner.setOnItemSelectedListener(spnOnItemSelectedcountry);
+
+
         }
 ////////////////////////////選完國家選學校/////////////////////////////
-        Thread getSchoolMessage = new Thread(new MyArrayHandler());
-        MyArrayHandler.url = "/GetSchoolDataByCountry?country="+String.valueOf(countryInfo);
-        schools = new ArrayList<String>();
 
-        getSchoolMessage.start();
-        while (!MyArrayHandler.done) {
-            System.out.println("wait");
-        }
-        MyArrayHandler.done = false;
-
-        for (int i = 0; i < MyArrayHandler.returnResult.length(); i++) {
-            try {
-                countries.add(MyArrayHandler.returnResult.getJSONObject(i).get("schoolName").toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            Spinner schoolspinner = (Spinner) findViewById(R.id.spinner2);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_list_item_1, countries);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            schoolspinner.setAdapter(adapter);
-            schoolspinner.setSelection(2, false);
-            schoolspinner.setOnItemSelectedListener(spnOnItemSelectedschool);
-        }
 
         Button submit = (Button) findViewById(R.id.button1);
         submit.setOnClickListener(new Button.OnClickListener() {
@@ -90,6 +68,31 @@ public class SearchPage extends AppCompatActivity {
         public void onItemSelected(AdapterView<?> parent, View view,
                                    int countrypos, long id) {
             countryInfo=parent.getItemAtPosition(countrypos).toString();
+            //////////////////////////////////////////////////////////////
+            Thread getSchoolMessage = new Thread(new MyArrayHandler());
+            MyArrayHandler.url = "/GetSchoolDataByCountry?country="+String.valueOf(countryInfo);
+            schools = new ArrayList<String>();
+
+            getSchoolMessage.start();
+            while (!MyArrayHandler.done) {
+                System.out.println("wait");
+            }
+            MyArrayHandler.done = false;
+
+            for (int j = 0; j < MyArrayHandler.returnResult.length(); j++) {
+                try {
+                    countries.add(MyArrayHandler.returnResult.getJSONObject(j).get("schoolName").toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Spinner schoolspinner = (Spinner) findViewById(R.id.spinner2);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countries);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                schoolspinner.setAdapter(adapter);
+                schoolspinner.setSelection(2, false);
+                schoolspinner.setOnItemSelectedListener(spnOnItemSelectedschool);
+            }
         }
         public void onNothingSelected(AdapterView<?> parent) {
             //
