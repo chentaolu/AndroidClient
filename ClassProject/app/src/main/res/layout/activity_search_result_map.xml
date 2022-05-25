@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".mapAct">
+    tools:context=".SearchResultMap">
     <fragment
-        android:id = "@+id/map"
+        android:id = "@+id/Search_Map"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -15,22 +15,34 @@
     </fragment>
 
     <Button
-        android:id="@+id/btsearch"
+        android:id="@+id/btstart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Search">
-    </Button>
+        android:text="Start" />
 
     <Button
-        android:id="@+id/webPage"
+        android:id="@+id/btstop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="GO WEB PAGE"></Button>
+        android:text="Stop" />
+
     <Button
-        android:id="@+id/btchange"
+        android:id="@+id/btdrive"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="change">
-    </Button>
+        android:text="Drive" />
+
+    <Button
+        android:id="@+id/btwalk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Walk" />
+
+    <Button
+        android:id="@+id/btbicycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bicycle" />
+
 
 </LinearLayout>

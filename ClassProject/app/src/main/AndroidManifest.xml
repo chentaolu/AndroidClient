@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ClassProject">
         <activity
+            android:name=".SearchResultMap"
+            android:exported="false" />
+        <activity
             android:name=".SearchPage"
             android:exported="false" />
 
